@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}",
+      "pipeTransport": {
+        "pipeProgram": "/bin/bash",
+        "pipeArgs": ["-c"],
+        "debuggerPath": "/opt/homebrew/opt/llvm/bin/lldb",
+        "pipeCwd": "${workspaceFolder}"
+      },
+      "sourceFileMap": {
+        "/": "${workspaceFolder}"
+      }
+    }
+  ]
+}

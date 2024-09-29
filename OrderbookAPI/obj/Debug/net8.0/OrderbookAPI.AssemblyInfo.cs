@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OrderbookAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fe226202b7eca2574f98f43035ba0604777dd04")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5eaf965a79e277ca101a37b2e3d77a3cbb20acf5")]
 [assembly: System.Reflection.AssemblyProductAttribute("OrderbookAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OrderbookAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
