@@ -8,35 +8,71 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4991752d-4e62-431d-a7ab-6ec630d0bcc5" name="Changes" comment="" />
+    <list default="true" id="4991752d-4e62-431d-a7ab-6ec630d0bcc5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Controllers/OrderbookController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/AskBid.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/Order.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/OrderBookData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/OrderBookUpdate.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OrderbookAPI.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OrderbookAPI.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/PriceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/PriceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/OrderbookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/OrderbookService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/OrderbookAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/OrderbookAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/OrderbookAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/OrderbookAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "SirMwazv"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SirMwazv&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/SirMwazv/FiveWestTechAssessment.git",
-    "accountId": "2bfe280d-4360-4b8c-a853-d979faf1e5ca"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SirMwazv/FiveWestTechAssessment.git&quot;,
+    &quot;accountId&quot;: &quot;2bfe280d-4360-4b8c-a853-d979faf1e5ca&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/mwazvitamutowo/RiderProjects/FiveWestTechAssessment/Solution1/FiveWestTechAssessment/OrderbookAPI/obj/Debug/net8.0/OrderbookAPI.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
 }]]></component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2miFjBv0bQobHbWxxZSdib8z7x1" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -47,6 +83,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.OrderbookAPI: http.executor": "Debug",
+    "Attach to Process.88681:OrderBookAPI.executor": "Debug",
+    "Attach to Process.89080:dotnet.executor": "Debug",
+    "Attach to Process.90972:dotnet.executor": "Debug",
+    "Attach to Process.92460:OrderBookAPI.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
@@ -105,6 +146,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727551623106</updated>
       <workItem from="1727551625070" duration="586000" />
+      <workItem from="1727730539371" duration="3568000" />
     </task>
     <task id="LOCAL-00001" summary="add WebSocketSharp package">
       <option name="closed" value="true" />
@@ -144,5 +186,24 @@
     <MESSAGE value="add websocketsharp via package manager" />
     <MESSAGE value="Add Price controller" />
     <option name="LAST_COMMIT_MESSAGE" value="Add Price controller" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/PriceController.cs</url>
+          <line>22</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/PriceController.cs" containingFunctionPresentation="Method 'GetPrice'">
+            <startOffsets>
+              <option value="557" />
+            </startOffsets>
+            <endOffsets>
+              <option value="630" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,84 +1,108 @@
 using System;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text.Json;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using OrderbookAPI.Models;
+using OrderbookAPI.Services;
 
-namespace OrderbookAPI.Services
+namespace OrderBookAPI.Services
 {
-    public class OrderbookService
+    public class OrderbookService : IHostedService
     {
-        private ClientWebSocket _webSocket;
+        private readonly InMemoryOrderBook _orderBook;
+        private readonly ClientWebSocket _webSocket = new ClientWebSocket();
+        private readonly string _webSocketUrl;
+        private readonly string _subscriptionEvent;
 
-        public OrderbookService()
+        public OrderbookService(InMemoryOrderBook orderBook, IConfiguration configuration)
         {
-            _webSocket = new ClientWebSocket();
-            Task.Run(() => ConnectToValr());
+            _orderBook = orderBook;
+
+            // Access WebSocketUrl and SubscriptionEvent from appsettings.json
+            _webSocketUrl = configuration["OrderbookService:WebSocketUrl"];
+            _subscriptionEvent = configuration["OrderbookService:SubscriptionEvent"];
         }
 
-        public async Task ConnectToValr()
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
+            await ConnectToWebSocket();
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Service stopping", CancellationToken.None);
+        }
+
+        private async Task ConnectToWebSocket()
         {
             try
             {
-                Uri valrWebSocketUri = new Uri("wss://api.valr.com/ws/trade");
+                // Connect to WebSocket using URL from appsettings.json
+                await _webSocket.ConnectAsync(new Uri(_webSocketUrl), CancellationToken.None);
+                Console.WriteLine("Connected to WebSocket!");
 
-                // Connect to the WebSocket
-                await _webSocket.ConnectAsync(valrWebSocketUri, CancellationToken.None);
-
-                // Subscribe to the orderbook updates//TODO
                 var subscribeMessage = new
                 {
                     type = "SUBSCRIBE",
-                    channels = new[] { "FULL_ORDERBOOK_UPDATE" }
+                    subscriptions = new[]
+                    {
+                        new
+                        {
+                            @event = _subscriptionEvent,
+                            pairs = new[] { "USDTZAR" }
+                        }
+                    }
                 };
 
-                string subscribeJson = JsonSerializer.Serialize(subscribeMessage);
-                var subscribeBytes = Encoding.UTF8.GetBytes(subscribeJson);
+                var jsonMessage = JsonSerializer.Serialize(subscribeMessage);
+                var bytes = Encoding.UTF8.GetBytes(jsonMessage);
+                await _webSocket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
+                //Console.WriteLine($"Subscribed to {_subscriptionEvent} for USDTZAR");
 
-                await _webSocket.SendAsync(new ArraySegment<byte>(subscribeBytes), WebSocketMessageType.Text, true, CancellationToken.None);
-
-                // Continuously listen to messages
-                await ReceiveMessages();
+                await ReceiveMessagesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"WebSocket connection failed: {ex.Message}");
+                //Console.WriteLine($"Error connecting to WebSocket: {ex.Message}");
             }
         }
 
-        private async Task ReceiveMessages()
+        private async Task ReceiveMessagesAsync()
         {
             var buffer = new byte[1024 * 4];
             while (_webSocket.State == WebSocketState.Open)
             {
                 var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                
-                if (result.MessageType == WebSocketMessageType.Text)
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
+                   // Console.WriteLine("WebSocket connection closed.");
+                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                }
+                else
                 {
                     var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    ProcessOrderbookUpdate(message);
-                }
-                else if (result.MessageType == WebSocketMessageType.Close)
-                {
-                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed by the client", CancellationToken.None);
+                    //Console.WriteLine($"Received message: {message}");
+
+                    ProcessOrderBookUpdate(message);
                 }
             }
         }
 
-        private void ProcessOrderbookUpdate(string message)
+        private void ProcessOrderBookUpdate(string message)
         {
-            // Parse the incoming WebSocket message and update the in-memory orderbook
-            Console.WriteLine($"Received orderbook update: {message}");
-            // Got from template, need to add in memory logic here
-        }
-
-        public decimal GetZARPriceForUSDT(decimal usdtQuantity)
-        {
-            // Implement the logic to calculate ZAR price based on the in-memory orderbook.
-            // This is just a placeholder for demonstration.
-            return usdtQuantity * 15;  // Example conversion rate (replace with real logic)
-            // Not sure but I think all I need is price from message above and will use that to convert.
+            try
+            {
+                var orderBookUpdate = JsonSerializer.Deserialize<OrderBookUpdate>(message);
+                _orderBook.UpdateOrderBook(orderBookUpdate);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing orderbook update: {ex.Message}");
+            }
         }
     }
 }

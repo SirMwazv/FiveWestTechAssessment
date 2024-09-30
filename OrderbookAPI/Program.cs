@@ -1,18 +1,22 @@
 using System.Net;
 using System.Net.Security;
+using OrderbookAPI.Services;
+using OrderBookAPI.Services;
 
 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add services to the container
 builder.Services.AddControllers();
 
-// Add the OrderbookService to the DI container
-builder.Services.AddSingleton<OrderbookAPI.Services.OrderbookService>();
+// Register the InMemoryOrderBook and OrderbookService in the DI container
+builder.Services.AddSingleton<InMemoryOrderBook>(); // In-memory orderbook service
+// Register OrderbookService as a hosted service
+builder.Services.AddHostedService<OrderbookService>();
 
+// Add IConfiguration to your services
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Add CORS service to allow any origin, method, and header
 builder.Services.AddCors(options =>
@@ -32,20 +36,16 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 // Enable CORS globally
 app.UseCors("AllowAll");
 
-// app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-// Map controllers
 app.MapControllers();
 
 app.Run();

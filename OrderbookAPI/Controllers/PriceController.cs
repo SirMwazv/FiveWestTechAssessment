@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OrderbookAPI.Services;
+using OrderbookAPI.Models;
+using OrderBookAPI.Services;
 
 namespace OrderbookAPI.Controllers
 {
@@ -7,18 +9,18 @@ namespace OrderbookAPI.Controllers
     [ApiController]
     public class PriceController : ControllerBase
     {
-        private readonly OrderbookService _orderbookService;
+        private readonly InMemoryOrderBook _orderBook;
 
-        public PriceController(OrderbookService orderbookService)
+        public PriceController(InMemoryOrderBook orderBook)
         {
-            _orderbookService = orderbookService;
+            _orderBook = orderBook;
         }
 
         [HttpGet]
         public IActionResult GetPrice([FromQuery] decimal usdtQuantity)
         {
-            var zarPrice = _orderbookService.GetZARPriceForUSDT(usdtQuantity);
-            return Ok(new { price_in_zar = zarPrice });
+        
+            return Ok(new { price_in_zar = usdtQuantity  * _orderBook.GetBestAsk()});
         }
     }
 }
