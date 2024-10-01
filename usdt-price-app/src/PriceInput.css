@@ -1,0 +1,42 @@
+/* src/PriceInput.css */
+.price-input-container {
+    background-color: lightgrey;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: left; /* Align headings to the left */
+  }
+  
+  .heading-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.2rem; /* Increase heading font size */
+  }
+  
+  .input-price-container {
+    display: flex;
+    align-items: center; /* Aligns input and price in the center */
+  }
+  
+  input {
+    padding: 10px;
+    margin-right: 10px; /* Space between input and price */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 50%; /* Set input box to take up half the space */
+  }
+  
+  .price-value {
+    color: green;
+    font-weight: bold;
+    width: 50%; 
+    text-align: left; 
+    display: inline-block; 
+  }
+  

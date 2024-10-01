@@ -5,8 +5,8 @@ namespace OrderbookAPI.Models
 {
     public class OrderBookUpdate
     {
-        public string Type { get; set; }
-        public string CurrencyPairSymbol { get; set; }
-        public OrderBookData Data { get; set; }
+        public string type { get; set; }
+        public string currencyPairSymbol { get; set; }
+        public OrderBookData data { get; set; }
     }    
 }

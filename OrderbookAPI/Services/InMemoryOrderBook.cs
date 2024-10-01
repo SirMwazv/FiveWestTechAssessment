@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using OrderbookAPI.Models;
 
 namespace OrderbookAPI.Services;
@@ -20,14 +21,16 @@ public class InMemoryOrderBook
         //Console.WriteLine("Updating in-memory orderbook...");
 
         // Process Asks
-        foreach (var ask in orderBookUpdate.Data.Asks)
+        foreach (var ask in orderBookUpdate.data.Asks)
         {
-            decimal price = decimal.Parse(ask.Price);
-            UpdatePriceLevel(_asks, price, ask.Orders);
+            if (decimal.TryParse(ask.Price, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal price))
+            {
+                UpdatePriceLevel(_asks, price, ask.Orders);
+            }
         }
 
         // Process Bids
-        foreach (var bid in orderBookUpdate.Data.Bids)
+        foreach (var bid in orderBookUpdate.data.Bids)
         {
             decimal price = decimal.Parse(bid.Price);
             UpdatePriceLevel(_bids, price, bid.Orders);
@@ -37,26 +40,48 @@ public class InMemoryOrderBook
     }
 
     // Update a price level in the orderbook (for both bids and asks)
-    private void UpdatePriceLevel(SortedDictionary<decimal, List<Order>> orderbook, decimal price,
-        List<Order> orders)
+    private void UpdatePriceLevel(SortedDictionary<decimal, List<Order>> orderbook, decimal price, List<Order> orders)
     {
-        if (orders.Count == 0 || orders.TrueForAll(o => decimal.Parse(o.Quantity) == 0))
+        // Check if the orders list is empty or if all orders have a quantity of 0
+        if (orders.Count == 0 || orders.TrueForAll(o => IsQuantityZero(o.quantity)))
         {
-            // If all orders at this price level have quantity 0, remove the price level
             orderbook.Remove(price);
         }
         else
         {
-            // If the price level already exists, update it, otherwise add a new entry
+            // If the price level already exists, update it; otherwise, add a new entry
             if (!orderbook.ContainsKey(price))
             {
                 orderbook[price] = new List<Order>();
             }
 
-            // Replace existing orders at this price level
+            // Update the list of orders at this price level
             orderbook[price] = orders;
         }
     }
+
+// Helper method to check if the quantity is zero, using decimal.TryParse
+    private bool IsQuantityZero(string quantityString)
+    {
+        // Ensure the quantity string is not null or empty
+        if (string.IsNullOrEmpty(quantityString))
+        {
+            Console.WriteLine("Quantity string is null or empty, treating as zero.");
+            return true;
+        }
+
+        // Try to parse the quantity, treating invalid or unparsable values as zero
+        if (decimal.TryParse(quantityString, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal quantity))
+        {
+            return quantity == 0;
+        }
+        else
+        {
+            Console.WriteLine($"Failed to parse quantity: {quantityString}, treating as zero.");
+            return true; // Treat failed parsing as zero quantity
+        }
+    }
+
 
     // Retrieve the best ask (lowest price)
     public decimal? GetBestAsk()

@@ -29,8 +29,10 @@ namespace OrderBookAPI.Services
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await ConnectToWebSocket();
+            // Start the WebSocket connection asynchronously
+            _ = Task.Run(async () => await ConnectToWebSocket());
         }
+
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
@@ -96,8 +98,21 @@ namespace OrderBookAPI.Services
         {
             try
             {
-                var orderBookUpdate = JsonSerializer.Deserialize<OrderBookUpdate>(message);
-                _orderBook.UpdateOrderBook(orderBookUpdate);
+                // First, deserialize only the type of the message to check it
+                var messageType = JsonSerializer.Deserialize<MessageType>(message);
+
+                // Handle only "FULL_ORDERBOOK_UPDATE" messages
+                if (messageType.type == "FULL_ORDERBOOK_UPDATE")
+                {
+                    // Deserialize the full message only if it's an update
+                    var orderBookUpdate = JsonSerializer.Deserialize<OrderBookUpdate>(message);
+                    _orderBook.UpdateOrderBook(orderBookUpdate);
+                    Console.WriteLine("Orderbook updated.");
+                }
+                else
+                {
+                    Console.WriteLine($"Received message of type: {messageType.type}, ignoring.");
+                }
             }
             catch (Exception ex)
             {

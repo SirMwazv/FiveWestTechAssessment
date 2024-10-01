@@ -12,8 +12,6 @@ builder.Services.AddControllers();
 
 // Register the InMemoryOrderBook and OrderbookService in the DI container
 builder.Services.AddSingleton<InMemoryOrderBook>(); // In-memory orderbook service
-// Register OrderbookService as a hosted service
-builder.Services.AddHostedService<OrderbookService>();
 
 // Add IConfiguration to your services
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -29,6 +27,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Register OrderbookService as a hosted service
+builder.Services.AddHostedService<OrderbookService>(); 
+
 // Add Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,10 +37,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Enable CORS globally
 app.UseCors("AllowAll");
