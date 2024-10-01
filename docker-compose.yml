@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: ./OrderbookAPI
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./OrderbookAPI:app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - react
+
+  react:
+    build:
+      context: ./usdt-price-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"  # Serve the React app on port 3000 (mapped to container's 80)
+
+networks:
+  default:
+    driver: bridge

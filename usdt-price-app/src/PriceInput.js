@@ -11,7 +11,7 @@ const PriceInput = () => {
     const fetchPrice = async () => {
       if (usdtAmount) {
         try {
-            const response = await axios.get(`http://localhost:5124/api/price?usdtQuantity=${usdtAmount}`);
+            const response = await axios.get(`http://localhost:5000/api/price?usdtQuantity=${usdtAmount}`);
             setPrice(response.data.price_in_zar); 
        } catch (error) {
           console.error('Error fetching price:', error);
