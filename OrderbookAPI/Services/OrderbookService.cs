@@ -18,6 +18,11 @@ namespace OrderBookAPI.Services
         private readonly string _webSocketUrl;
         private readonly string _subscriptionEvent;
 
+        /// <summary>
+        /// OrderbookService
+        /// </summary>
+        /// <param name="orderBook">orderBook</param>
+        /// <param name="configuration">configuration</param>
         public OrderbookService(InMemoryOrderBook orderBook, IConfiguration configuration)
         {
             _orderBook = orderBook;
@@ -27,6 +32,10 @@ namespace OrderBookAPI.Services
             _subscriptionEvent = configuration["OrderbookService:SubscriptionEvent"];
         }
 
+        /// <summary>
+        /// StartAsync
+        /// </summary>
+        /// <param name="cancellationToken">cancellationToken</param>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             // Start the WebSocket connection asynchronously
@@ -34,11 +43,19 @@ namespace OrderBookAPI.Services
         }
 
 
+        /// <summary>
+        /// StopAsync
+        /// </summary>
+        /// <param name="cancellationToken">cancellationToken</param>
+        /// <returns>Task</returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
             return _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Service stopping", CancellationToken.None);
         }
 
+        /// <summary>
+        /// ConnectToWebSocket
+        /// </summary>
         private async Task ConnectToWebSocket()
         {
             try
@@ -63,16 +80,17 @@ namespace OrderBookAPI.Services
                 var jsonMessage = JsonSerializer.Serialize(subscribeMessage);
                 var bytes = Encoding.UTF8.GetBytes(jsonMessage);
                 await _webSocket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
-                //Console.WriteLine($"Subscribed to {_subscriptionEvent} for USDTZAR");
-
                 await ReceiveMessagesAsync();
             }
             catch (Exception ex)
             {
-                //Console.WriteLine($"Error connecting to WebSocket: {ex.Message}");
+                Console.WriteLine($"Error connecting to WebSocket: {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// ReceiveMessagesAsync
+        /// </summary>
         private async Task ReceiveMessagesAsync()
         {
             var buffer = new byte[1024 * 4];
@@ -81,19 +99,20 @@ namespace OrderBookAPI.Services
                 var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                   // Console.WriteLine("WebSocket connection closed.");
                     await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
                 }
                 else
                 {
                     var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    //Console.WriteLine($"Received message: {message}");
-
                     ProcessOrderBookUpdate(message);
                 }
             }
         }
 
+        /// <summary>
+        /// ProcessOrderBookUpdate
+        /// </summary>
+        /// <param name="message">message</param>
         private void ProcessOrderBookUpdate(string message)
         {
             try

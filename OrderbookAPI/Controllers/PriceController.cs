@@ -11,11 +11,20 @@ namespace OrderbookAPI.Controllers
     {
         private readonly InMemoryOrderBook _orderBook;
 
+        /// <summary>
+        /// Price Controller
+        /// </summary>
+        /// <param name="orderBook">orderBook</param>
         public PriceController(InMemoryOrderBook orderBook)
         {
             _orderBook = orderBook;
         }
-
+        
+        /// <summary>
+        /// GetPrice
+        /// </summary>
+        /// <param name="usdtQuantity">usdtQuantity</param>
+        /// <returns>decimal</returns>
         [HttpGet]
         public IActionResult GetPrice([FromQuery] decimal usdtQuantity)
         {

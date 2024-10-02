@@ -7,7 +7,6 @@ namespace OrderbookAPI.Services;
 
 public class InMemoryOrderBook
 {
-    // Sorted dictionary to maintain the orderbook for asks (sorted by lowest price)
     private SortedDictionary<decimal, List<Order>> _asks = new SortedDictionary<decimal, List<Order>>();
 
     // Sorted dictionary to maintain the orderbook for bids (sorted by highest price)
@@ -15,11 +14,14 @@ public class InMemoryOrderBook
         new SortedDictionary<decimal, List<Order>>(Comparer<decimal>.Create((x, y) =>
             y.CompareTo(x))); // Descending order
 
-    // Process a new orderbook update (insert into memory)
+
+    /// <summary>
+    /// Add updates to in memory order book
+    /// </summary>
+    /// <param name="orderBookUpdate">orderBookUpdate</param>
     public void UpdateOrderBook(OrderBookUpdate orderBookUpdate)
     {
-        //Console.WriteLine("Updating in-memory orderbook...");
-
+        
         // Process Asks
         foreach (var ask in orderBookUpdate.data.Asks)
         {
@@ -35,11 +37,14 @@ public class InMemoryOrderBook
             decimal price = decimal.Parse(bid.Price);
             UpdatePriceLevel(_bids, price, bid.Orders);
         }
-
-        //Console.WriteLine("Orderbook updated.");
     }
 
-    // Update a price level in the orderbook (for both bids and asks)
+   /// <summary>
+   ///  Update a price level in the orderbook (for both bids and asks)
+   /// </summary>
+   /// <param name="orderbook">orderbook</param>
+   /// <param name="price">price</param>
+   /// <param name="orders">orders</param>
     private void UpdatePriceLevel(SortedDictionary<decimal, List<Order>> orderbook, decimal price, List<Order> orders)
     {
         // Check if the orders list is empty or if all orders have a quantity of 0
@@ -59,9 +64,13 @@ public class InMemoryOrderBook
             orderbook[price] = orders;
         }
     }
-
-// Helper method to check if the quantity is zero, using decimal.TryParse
-    private bool IsQuantityZero(string quantityString)
+   
+   /// <summary>
+   /// IsQuantityZero
+   /// </summary>
+   /// <param name="quantityString">quantityString</param>
+   /// <returns>boolean</returns>
+   private bool IsQuantityZero(string quantityString)
     {
         // Ensure the quantity string is not null or empty
         if (string.IsNullOrEmpty(quantityString))
@@ -82,15 +91,20 @@ public class InMemoryOrderBook
         }
     }
 
-
-    // Retrieve the best ask (lowest price)
+   /// <summary>
+   /// GetBestAsk
+   /// </summary>
+   /// <returns>decimal</returns>
     public decimal? GetBestAsk()
     {
         if (_asks.Count == 0) return null;
         return _asks.Keys.Min(); // First key in SortedDictionary (smallest price)
     }
 
-    // Retrieve the best bid (highest price)
+    /// <summary>
+    /// GetBestBid
+    /// </summary>
+    /// <returns>decimal</returns>
     public decimal? GetBestBid()
     {
         if (_bids.Count == 0) return null;

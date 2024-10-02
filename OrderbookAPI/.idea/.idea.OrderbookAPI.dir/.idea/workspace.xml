@@ -8,12 +8,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4991752d-4e62-431d-a7ab-6ec630d0bcc5" name="Changes" comment="Added logic to save in memory, added a few endpoints to API in order to query via swagger the results I am getting">
-      <change afterPath="$PROJECT_DIR$/Models/MessageType.cs" afterDir="false" />
+    <list default="true" id="4991752d-4e62-431d-a7ab-6ec630d0bcc5" name="Changes" comment="Add new controller and also remove handle different message types plus decimal parsing">
+      <change afterPath="$PROJECT_DIR$/Models/AssetAllocation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/BinanceDepthResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/CryptoAsset.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/CryptoFundRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OrderbookAPI.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OrderbookAPI.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/OrderbookController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/OrderbookController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/PriceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/PriceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/AskBid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/AskBid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/MessageType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/MessageType.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/OrderBookData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/OrderBookData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/OrderBookUpdate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/OrderBookUpdate.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/OrderbookService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/OrderbookService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/OrderbookAPI.dll" afterDir="false" />
@@ -21,11 +31,16 @@
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/OrderbookAPI.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/OrderbookAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/OrderbookAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/OrderbookAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usdt-price-app/src/PriceInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/../usdt-price-app/src/PriceInput.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +66,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3584fc962c664ff1a957f751db2b137143600/c6/d185cc78/SortedSet`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/df33c7fd7db04a829574707592655c01d82000/b7/65b29feb/Monitor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/df33c7fd7db04a829574707592655c01d82000/c7/fb89ba1f/Number.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
@@ -72,8 +89,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.OrderbookAPI: http.executor": "Debug",
+    ".NET Launch Settings Profile.OrderbookAPI: http.executor": "Run",
     ".NET Launch Settings Profile.OrderbookAPI: https.executor": "Run",
+    "Attach to Process.47648:dotnet.executor": "Debug",
+    "Attach to Process.48581:dotnet.executor": "Debug",
+    "Attach to Process.49234:dotnet.executor": "Debug",
+    "Attach to Process.50576:dotnet.executor": "Debug",
+    "Attach to Process.51348:dotnet.executor": "Debug",
+    "Attach to Process.51723:dotnet.executor": "Debug",
+    "Attach to Process.52089:dotnet.executor": "Debug",
+    "Attach to Process.52510:dotnet.executor": "Debug",
+    "Attach to Process.53013:dotnet.executor": "Debug",
+    "Attach to Process.66593:dotnet.executor": "Debug",
     "Attach to Process.88681:OrderBookAPI.executor": "Debug",
     "Attach to Process.89080:dotnet.executor": "Debug",
     "Attach to Process.90972:dotnet.executor": "Debug",
@@ -127,6 +154,31 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="imageTag" value="orderbookapi" />
+          <option name="containerName" value="orderbookapi" />
+          <option name="contextFolderPath" value="$PROJECT_DIR$" />
+          <option name="portBindings">
+            <list>
+              <DockerPortBindingImpl>
+                <option name="containerPort" value="8080" />
+                <option name="hostIp" value="127.0.0.1" />
+                <option name="hostPort" value="8080" />
+              </DockerPortBindingImpl>
+            </list>
+          </option>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -137,7 +189,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727551623106</updated>
       <workItem from="1727551625070" duration="586000" />
-      <workItem from="1727730539371" duration="9196000" />
+      <workItem from="1727730539371" duration="33719000" />
     </task>
     <task id="LOCAL-00001" summary="add WebSocketSharp package">
       <option name="closed" value="true" />
@@ -171,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727734803529</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add new controller and also remove handle different message types plus decimal parsing">
+      <option name="closed" value="true" />
+      <created>1727796682220</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727796682220</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,62 +245,24 @@
     <MESSAGE value="add websocketsharp via package manager" />
     <MESSAGE value="Add Price controller" />
     <MESSAGE value="Added logic to save in memory, added a few endpoints to API in order to query via swagger the results I am getting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added logic to save in memory, added a few endpoints to API in order to query via swagger the results I am getting" />
+    <MESSAGE value="Add new controller and also remove handle different message types plus decimal parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new controller and also remove handle different message types plus decimal parsing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Controllers/PriceController.cs</url>
-          <line>22</line>
+          <line>31</line>
           <properties documentPath="$PROJECT_DIR$/Controllers/PriceController.cs" containingFunctionPresentation="Method 'GetPrice'">
             <startOffsets>
-              <option value="557" />
+              <option value="858" />
             </startOffsets>
             <endOffsets>
-              <option value="630" />
+              <option value="931" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/InMemoryOrderBook.cs</url>
-          <line>88</line>
-          <properties documentPath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" containingFunctionPresentation="Method 'GetBestAsk'">
-            <startOffsets>
-              <option value="3110" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3131" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/InMemoryOrderBook.cs</url>
-          <line>25</line>
-          <properties documentPath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" containingFunctionPresentation="Method 'UpdateOrderBook'">
-            <startOffsets>
-              <option value="940" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1039" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/InMemoryOrderBook.cs</url>
-          <line>45</line>
-          <properties documentPath="$PROJECT_DIR$/Services/InMemoryOrderBook.cs" containingFunctionPresentation="Method 'UpdatePriceLevel'">
-            <startOffsets>
-              <option value="1693" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1769" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
